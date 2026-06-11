@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HoneyShop – Experiencia Premium VIP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --card:    #161616;
+      --gold:    #c9a84c;
+      --gold2:   #e8c96a;
+      --pink:    #d4547a;
+      --pink2:   #f07090;
+      --white:   #f5f0e8;
+      --muted:   #888880;
+      --wpp:     #25D366;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold2); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(212,84,122,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .gold { color: var(--gold2); }
+    .hero h1 .pink { color: var(--pink2); }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 44px;
+      font-weight: 300;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,0.2);
+    }
+    .divider-icon {
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    /* ── PRODUCTS ── */
+    .products {
+      padding: 70px 24px 80px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .product-card.gold-card { border-color: rgba(201,168,76,0.2); }
+    .product-card.pink-card { border-color: rgba(212,84,122,0.2); }
+
+    .product-banner {
+      padding: 10px 16px;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .gold-card .product-banner {
+      background: linear-gradient(90deg, rgba(201,168,76,0.15), rgba(232,201,106,0.1));
+      color: var(--gold2);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .pink-card .product-banner {
+      background: linear-gradient(90deg, rgba(212,84,122,0.15), rgba(240,112,144,0.1));
+      color: var(--pink2);
+      border-bottom: 1px solid rgba(212,84,122,0.15);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .gold-card .product-img-wrap {
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 70%);
+    }
+
+    .pink-card .product-img-wrap {
+      background: radial-gradient(ellipse at center, rgba(212,84,122,0.1) 0%, transparent 70%);
+    }
+
+    .product-emoji {
+      font-size: 5rem;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+    }
+
+    .product-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .gold-card .product-name { color: var(--gold2); }
+    .pink-card .product-name { color: var(--pink2); }
+
+    .product-tagline {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .product-features {
+      list-style: none;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .product-features li {
+      font-size: 0.85rem;
+      color: #b0a898;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feat-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .gold-card .feat-dot { background: var(--gold); }
+    .pink-card .feat-dot { background: var(--pink); }
+
+    .product-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .gold-card .product-price { color: var(--gold2); }
+    .pink-card .product-price { color: var(--pink2); }
+
+    .product-price span {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .btn-wpp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wpp);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-wpp:hover {
+      background: #20ba58;
+      transform: scale(1.03);
+    }
+
+    .btn-wpp svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+      flex-shrink: 0;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits {
+      padding: 70px 24px 80px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .benefit-item {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .benefit-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .benefit-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .benefit-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── CTA BOTTOM ── */
+    .cta-bottom {
+      padding: 80px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bottom::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-bottom h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      margin-bottom: 12px;
+    }
+
+    .cta-bottom p {
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+
+    .btn-wpp-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--wpp);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-wpp-lg:hover {
+      background: #20ba58;
+      transform: scale(1.03);
+    }
+
+    .btn-wpp-lg svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .products-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">HoneyShop</div>
+    <ul class="nav-links">
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#beneficios">Beneficios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Experiencia Premium VIP</div>
+    <h1>
+      Miel que<br>
+      <span class="gold">potencia</span> y<br>
+      <span class="pink">despierta</span>
+    </h1>
+    <p class="hero-sub">Productos naturales premium para momentos únicos. Envío discreto, calidad garantizada.</p>
+    <div class="hero-badges">
+      <span class="badge">✦ 100% Original</span>
+      <span class="badge">🔒 Envío discreto</span>
+      <span class="badge">⚡ Efecto real</span>
+      <span class="badge">💬 Atención personalizada</span>
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="productos">
+    <p class="section-label">Catálogo</p>
+    <h2 class="section-title">Nuestros productos</h2>
+
+    <div class="products-grid">
+
+      <!-- ROYAL HONEY VIP -->
+      <div class="product-card gold-card">
+        <div class="product-banner">Para él · Energía &amp; Vitalidad</div>
+        <div class="product-img-wrap">
+          <span class="product-emoji">🍯</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Royal Honey VIP</h3>
+          <p class="product-tagline">The Ultimate Power Source</p>
+          <ul class="product-features">
+            <li><span class="feat-dot"></span>Fórmula natural premium</li>
+            <li><span class="feat-dot"></span>Potencia energía y resistencia</li>
+            <li><span class="feat-dot"></span>Absorción rápida, sin dolores de cabeza</li>
+            <li><span class="feat-dot"></span>20g por sachet</li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">$790 <span>/ unidad</span></div>
+            <a class="btn-wpp" href="https://wa.me/TUNUMERO?text=Hola!%20Me%20interesa%20el%20Royal%20Honey%20VIP%20%F0%9F%8D%AF%20%C2%BFpueden%20darme%20m%C3%A1s%20info%3F" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Consultar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PINK PUSSYCAT -->
+      <div class="product-card pink-card">
+        <div class="product-banner">Para ella · Sensualidad &amp; Deseo</div>
+        <div class="product-img-wrap">
+          <span class="product-emoji">🩷</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Pink Pussycat Honey</h3>
+          <p class="product-tagline">Heighten Sensations and Desire</p>
+          <ul class="product-features">
+            <li><span class="feat-dot"></span>Desarrollado para la satisfacción femenina</li>
+            <li><span class="feat-dot"></span>Intensifica sensaciones y deseo</li>
+            <li><span class="feat-dot"></span>100% garantizado</li>
+            <li><span class="feat-dot"></span>20g por sachet</li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">$790 <span>/ unidad</span></div>
+            <a class="btn-wpp" href="https://wa.me/TUNUMERO?text=Hola!%20Me%20interesa%20el%20Pink%20Pussycat%20Honey%20%F0%9F%A9%B7%20%C2%BFpueden%20darme%20m%C3%A1s%20info%3F" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Consultar
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <!-- BENEFITS -->
+  <section class="benefits" id="beneficios">
+    <p class="section-label">¿Por qué elegirnos?</p>
+    <h2 class="section-title">Tu experiencia VIP</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <span class="benefit-icon">✦</span>
+        <div class="benefit-title">Calidad Premium</div>
+        <p class="benefit-desc">Productos 100% originales, importados y certificados.</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">🔒</span>
+        <div class="benefit-title">Envío Discreto</div>
+        <p class="benefit-desc">Tu privacidad es nuestra prioridad. Empaque sin identificación.</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">⚡</span>
+        <div class="benefit-title">Efecto Real</div>
+        <p class="benefit-desc">Fórmulas para potenciar energía, vitalidad y deseo.</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">💬</span>
+        <div class="benefit-title">Atención Personalizada</div>
+        <p class="benefit-desc">Te ayudamos en cada paso con total discreción.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BOTTOM -->
+  <section class="cta-bottom" id="contacto">
+    <h2>¿Listo para tu experiencia VIP?</h2>
+    <p>Escribinos y te respondemos al instante con total discreción.</p>
+    <a class="btn-wpp-lg" href="https://wa.me/TUNUMERO?text=Hola!%20Quiero%20consultar%20sobre%20los%20productos%20de%20HoneyShop%20🍯" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Escribinos por WhatsApp
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">HoneyShop</div>
+    <p>© 2026 HoneyShop · Productos premium para momentos únicos</p>
+  </footer>
+
+</body>
+</html>
