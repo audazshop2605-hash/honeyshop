@@ -234,11 +234,23 @@
 
     .product-img-wrap {
       position: relative;
-      height: 220px;
+      height: 260px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
     }
 
     .gold-card .product-img-wrap {
@@ -247,11 +259,6 @@
 
     .pink-card .product-img-wrap {
       background: radial-gradient(ellipse at center, rgba(212,84,122,0.1) 0%, transparent 70%);
-    }
-
-    .product-emoji {
-      font-size: 5rem;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
     }
 
     .product-body {
@@ -527,7 +534,7 @@
       <div class="product-card gold-card">
         <div class="product-banner">Para él · Energía &amp; Vitalidad</div>
         <div class="product-img-wrap">
-          <span class="product-emoji">🍯</span>
+          <img src="WhatsApp Image 2026-06-10 at 18.14.49.jpeg" alt="Royal Honey VIP" />
         </div>
         <div class="product-body">
           <h3 class="product-name">Royal Honey VIP</h3>
@@ -552,7 +559,7 @@
       <div class="product-card pink-card">
         <div class="product-banner">Para ella · Sensualidad &amp; Deseo</div>
         <div class="product-img-wrap">
-          <span class="product-emoji">🩷</span>
+          <img src="WhatsApp Image 2026-06-10 at 18.14.49 (1).jpeg" alt="Pink Pussycat Honey" />
         </div>
         <div class="product-body">
           <h3 class="product-name">Pink Pussycat Honey</h3>
